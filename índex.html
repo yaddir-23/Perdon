@@ -95,23 +95,18 @@
       display: none;
     }
 
-    /* ❤️ Animaciones de corazones flotando */
     .heart {
       position: absolute;
-      width: 20px;
-      height: 20px;
       background: red;
       transform: rotate(45deg);
-      animation: float 8s linear infinite;
       opacity: 0.7;
+      z-index: 1;
     }
 
     .heart::before,
     .heart::after {
       content: '';
       position: absolute;
-      width: 20px;
-      height: 20px;
       background: red;
       border-radius: 50%;
     }
@@ -143,8 +138,8 @@
 </head>
 <body>
 
-  <!-- 🎶 Música de fondo -->
-  <audio id="bg-music" autoplay loop>
+  <!-- Música de fondo -->
+  <audio id="bg-music" loop>
     <source src="https://raw.githubusercontent.com/Yaddir-23/perdon/main/audio.m4a" type="audio/mp4">
     Tu navegador no soporta el audio.
   </audio>
@@ -157,48 +152,33 @@
     <div class="emoji-line">😞😞</div>
 
     <p><strong>Noemi esto es para ti!!</strong></p>
-    <p>Escribo esto con el corazón destrozado 😞 y lleno de arrepentimiento por mis acciones. Sé que por mi duda te he lastimado y eso me duele profundamente.</p>
-    <p>Reconozco mi error y asumo plena responsabilidad.</p>
-    <p>No hay excusa que justifique el daño que te causé por culpa de mi inseguridad.</p>
-    <p>Me duele saber que mis inseguridades y mis acciones te hayan afectado tanto 😞.</p>
-    <p>Valoro nuestra relación más que nada en el mundo.</p>
-    <p>Eres una persona increíble, llena de bondad y amor, y no pienso perderte por mi falta de juicio y seguridad. ❤️</p>
-    <p>He reflexionado mucho sobre lo sucedido 😞 y estoy comprometido a aprender de esto. Prometo trabajar en mí para ser una mejor persona y evitar que algo así vuelva a suceder.</p>
+    <p>Escribo esto con el corazón destrozado 😞 y lleno de arrepentimiento por mis acciones...</p>
     <p>Por favor acepta mis más sinceras disculpas 🥺.</p>
-    <p>Espero que puedas encontrar en tu corazón la generosidad de perdonarme. Te respeto y te quiero más de lo que las palabras pueden expresar. 💔</p>
-
-    <div class="emoji-line">😞💔🥺</div>
-
     <p class="signature">Con todo mi amor y arrepentimiento,<br>Tu novio Yaddir 😞</p>
 
     <button class="btn" onclick="document.getElementById('bg-music').play()">🎵 Reproducir música</button>
   </div>
 
-  <!-- ❤️ corazones flotando -->
   <script>
-    const createHearts = () => {
+    function createHearts() {
       for (let i = 0; i < 20; i++) {
         const heart = document.createElement('div');
-        heart.classList.add('heart');
+        const size = 10 + Math.random() * 20;
+        heart.className = 'heart';
+        heart.style.width = `${size}px`;
+        heart.style.height = `${size}px`;
         heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = 4 + Math.random() * 6 + 's';
-        heart.style.width = heart.style.height = 10 + Math.random() * 20 + 'px';
+        heart.style.animation = `float ${4 + Math.random() * 6}s linear`;
         document.body.appendChild(heart);
-
-        setTimeout(() => {
-          heart.remove();
-        }, 10000);
+        setTimeout(() => heart.remove(), 10000);
       }
-    };
+    }
+    setInterval(createHearts, 800);
 
-    setInterval(createHearts, 1000);
-
-    // Autoplay workaround
     window.addEventListener('click', () => {
       const audio = document.getElementById('bg-music');
-      if (audio) audio.play();
+      if (audio && audio.paused) audio.play();
     }, { once: true });
   </script>
-
 </body>
 </html>
